@@ -10,20 +10,22 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
-  }
+  // @Post()
+  // create(@Body() createUserDto: CreateUserDto) {
+  //   return this.userService.create(createUserDto);
+  // }
 
-  @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
+  // @Get()
+  // findAll() {
+  //   return this.userService.findAll();
+  // }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
@@ -40,8 +42,8 @@ export class UserController {
   //   return this.userService.remove(+id);
   // }
 
-  @Delete()
-  async removeAll() {
-    return await this.userService.removeAll();
-  }
+  // @Delete()
+  // async removeAll() {
+  //   return await this.userService.removeAll();
+  // }
 }
