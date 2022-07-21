@@ -6,6 +6,7 @@ import {
   SwaggerModule,
 } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { appConstants } from './constants/app.constant';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,9 +18,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS')
-    .setDescription('The NestJS API')
-    .setVersion('1.0')
+    .setTitle(appConstants.APP_NAME)
+    .setDescription(appConstants.APP_DESCRIPTION)
+    .setVersion(appConstants.APP_VERSION)
     .build();
 
   const options: SwaggerDocumentOptions = {

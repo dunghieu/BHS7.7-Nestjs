@@ -5,7 +5,7 @@ import { IsEmpty, IsInt, IsMongoId, IsString } from 'class-validator';
 export class CreateProductDto {
   @ApiProperty()
   @IsMongoId()
-  userID: string;
+  userId: string;
 
   @ApiProperty()
   @IsString()

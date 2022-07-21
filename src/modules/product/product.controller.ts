@@ -16,10 +16,10 @@ import {
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ValidateMongoId } from 'src/pipes/validation.pipe';
+import { ValidateMongoId } from '../../pipes/validation.pipe';
 import { createReviewDto } from './dto/create-review.dto';
 import { ApiBody, ApiHeader, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 
 @ApiTags('product')
 @Controller('product')
@@ -51,7 +51,7 @@ export class ProductController {
     return product;
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiResponse({ status: 404, description: 'Product not found' })
   @ApiResponse({ status: 400, description: 'Invalid mongoId' })

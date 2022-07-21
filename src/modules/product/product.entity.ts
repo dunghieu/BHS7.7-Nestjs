@@ -4,6 +4,8 @@ import { ObjectId } from 'mongodb';
 import { Column, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
 import { User } from '../user/user.entity';
 
+export interface IProduct {}
+
 @Entity()
 export class Product {
   @ObjectIdColumn()

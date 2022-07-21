@@ -12,7 +12,7 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    const emailExist = await this.findOne(createUserDto.email);
+    const emailExist = await this.findOneBy(createUserDto.email);
     if (emailExist) {
       throw new HttpException('Email already exist', HttpStatus.BAD_REQUEST);
     }
@@ -26,7 +26,7 @@ export class UserService {
     return this.userRepository.find({});
   }
 
-  findOne(email: string) {
+  findOneBy(email: string) {
     return this.userRepository.findOneBy({ email: email });
   }
 

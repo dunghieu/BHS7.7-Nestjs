@@ -1,8 +1,10 @@
 import { HttpStatus, Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ObjectId } from 'mongodb';
-import { MongoRepository, ObjectID } from 'typeorm';
+import { momentConstants } from '../../constants/moment.constant';
+import { ProductNotFoundException } from '../../exceptions/product-not-found.exception';
+import { ObjectID, MongoRepository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './product.entity';
@@ -19,7 +21,7 @@ export class ProductService {
     product.name = createProductDto.name;
     product.price = createProductDto.price;
     product.description = createProductDto.description;
-    product.userId = createProductDto.userID;
+    product.userId = createProductDto.userId;
     return this.productRepository.save(product);
   }
 
@@ -35,28 +37,25 @@ export class ProductService {
 
   async update(id: string, updateProductDto: UpdateProductDto) {
     const product = await this.findOne(id);
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+    if (!product) throw new ProductNotFoundException();
     return this.productRepository.update(product, updateProductDto);
   }
 
   async remove(id: string) {
     const product = await this.findOne(id);
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+    if (!product) throw new ProductNotFoundException();
     return this.productRepository.delete(product);
   }
 
   async addReview(id: string, review: any) {
     const product = await this.findOne(id);
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+    if (!product) throw new ProductNotFoundException();
     review = {
       email: review.email,
       rating: review.rating,
       comment: review.comment,
       userId: review.userId,
-      createdAt: moment().format('HH:mm:ss DD-MM-YYYY'),
+      createdAt: moment().format(momentConstants.DATE_TIME_FORMAT),
     };
     product.reviews.push(review);
     product.totalReviews = product.reviews.length;
