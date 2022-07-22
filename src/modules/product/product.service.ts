@@ -1,6 +1,5 @@
 import { HttpStatus, Injectable, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import moment from 'moment';
 import { ObjectId } from 'mongodb';
 import { momentConstants } from '../../constants/moment.constant';
 import { ProductNotFoundException } from '../../exceptions/product-not-found.exception';
@@ -8,6 +7,8 @@ import { ObjectID, MongoRepository } from 'typeorm';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './product.entity';
+import * as mom from 'moment';
+const moment = require('moment').default || require('moment');
 
 @Injectable()
 export class ProductService {
@@ -30,9 +31,13 @@ export class ProductService {
   }
 
   findOne(id: string) {
-    return this.productRepository.findOneBy({
-      _id: new ObjectId(id),
-    });
+    try {
+      return this.productRepository.findOneBy({
+        _id: new ObjectId(id),
+      });
+    } catch (e) {
+      throw new ProductNotFoundException();
+    }
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
