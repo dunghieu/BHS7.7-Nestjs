@@ -28,6 +28,11 @@ describe('ProductService', () => {
     jest.clearAllMocks();
   });
 
+  it('should throw an error if the product does not exist', async () => {
+    repositoryMock.findOneBy.mockReturnValue(null);
+    expect(() => productService.findOne('id')).toThrow();
+  });
+
   it('should find a product by id', async () => {
     const product = {
       name: 'product',
@@ -72,7 +77,48 @@ describe('ProductService', () => {
     expect(productService.create(product)).toEqual(product);
   });
 
-  it.todo('should update a product');
-  it.todo('should remove a product');
-  it.todo('should add a review to a product');
+  it('should update a product', async () => {
+    const product = {
+      name: 'product',
+      _id: '62d133dff7b8b0612355b4a6',
+      price: 10,
+      description: 'description',
+      userId: '62d133dff7b8b0612355b4a6',
+    };
+    repositoryMock.update.mockReturnValue(product);
+    expect(await productService.update(product._id, product)).toEqual(product);
+  });
+  it('should remove a product', async () => {
+    const product = {
+      name: 'product',
+      _id: '62d133dff7b8b0612355b4a6',
+      price: 10,
+      description: 'description',
+      userId: '62d133dff7b8b0612355b4a6',
+    };
+    repositoryMock.delete.mockReturnValue(product);
+    expect(await productService.remove(product._id)).toEqual(product);
+  });
+  it('should add a review to a product', async () => {
+    const review = {
+      userId: '62d133dff7b8b0612355b4a6',
+      rating: 5,
+      comment: 'comment',
+      email: 'email',
+      createdAt: new Date(),
+    };
+    const product = {
+      reviews: [],
+      name: 'product',
+      _id: '62d133dff7b8b0612355b4a6',
+      price: 10,
+      description: 'description',
+      userId: '62d133dff7b8b0612355b4a6',
+    };
+    repositoryMock.findOneBy.mockReturnValue(product);
+    repositoryMock.save.mockReturnValue(product);
+    expect(await productService.addReview(product._id, review)).toEqual(
+      product,
+    );
+  });
 });
