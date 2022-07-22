@@ -32,3 +32,5 @@ async function bootstrap() {
   await app.listen(3000);
 }
 bootstrap();
+
+console.log('asd');
