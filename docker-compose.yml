@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  app:
+    container_name: app
+    image: server-dev:1.0.0
+    build: .
+    ports:
+      - 3000:3000
+    command: npm run start:dev
+    networks:
+      - nestjs
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+  mongodb:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - nestjs
+    ports:
+      - 27017:27017
+volumes:
+  mongodb-data:
+    name: mongodb-data
+networks:
+  nestjs:
