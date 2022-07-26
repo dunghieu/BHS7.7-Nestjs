@@ -5,7 +5,7 @@ import { UserService } from '../../src/modules/user/user.service';
 import { Repository } from 'typeorm';
 import { repositoryMockFactory, type MockType } from '../mocker';
 
-describe.skip('UserService', () => {
+describe('UserService', () => {
   let userService: UserService;
   let repositoryMock: MockType<Repository<User>>;
   beforeEach(async () => {

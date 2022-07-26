@@ -26,7 +26,7 @@ import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @UseGuards(JwtAuthGuard)
+  //@UseGuards(JwtAuthGuard)
   @Post()
   @ApiResponse({ status: 400, description: 'Missing required fields' })
   @ApiResponse({ status: 201, description: 'Product successfully created' })
@@ -51,7 +51,7 @@ export class ProductController {
     return product;
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @ApiResponse({ status: 404, description: 'Product not found' })
   @ApiResponse({ status: 400, description: 'Invalid mongoId' })

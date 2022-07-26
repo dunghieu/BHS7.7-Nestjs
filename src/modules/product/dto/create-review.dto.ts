@@ -16,7 +16,7 @@ export class createReviewDto {
 
   @ApiProperty()
   @IsString()
-  comment: string;
+  comment?: string;
 
   @ApiProperty()
   @IsString()

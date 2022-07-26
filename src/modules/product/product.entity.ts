@@ -14,9 +14,6 @@ export class Product {
   @Column()
   userId: string;
 
-  // @Column()
-  // img: Buffer;
-
   @Column()
   name: string;
 
@@ -45,7 +42,7 @@ export class Product {
 @Entity()
 class Review {
   @Column()
-  name: string;
+  email: string;
 
   @Column()
   rating: number;
