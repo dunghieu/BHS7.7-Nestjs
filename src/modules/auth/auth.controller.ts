@@ -16,8 +16,8 @@ import { ApiResponse } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
+  @UseGuards(LocalAuthGuard)
   @ApiResponse({ status: 401, description: 'Invalid email or password' })
   @ApiResponse({ status: 200, description: 'Login success' })
   async login(@Request() req, @Body() createUserDto: CreateUserDto) {
